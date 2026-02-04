@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Приглашение в кино</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #1c1c1c, #000);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255,0,150,0.08), rgba(0,200,255,0.08));
+      pointer-events: none;
+      animation: glow 8s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { opacity: 0.4; }
+      to { opacity: 0.8; }
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 80px 20px;
+      text-align: center;
+      animation: fadeIn 2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.85;
+      margin-bottom: 50px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 25px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      transition: 0.4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+    }
+
+    .card h2 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 10px;
+    }
+
+    .dress span {
+      display: inline-block;
+      margin: 8px;
+      padding: 8px 16px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #ff5f9e, #7f7cff);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      50% { transform: translateY(-6px); }
+    }
+
+    .button {
+      margin-top: 40px;
+    }
+
+    .button button {
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ffd86f, #fc6262);
+      padding: 16px 40px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 10px 30px rgba(255,200,100,0.4);
+      transition: 0.3s ease;
+    }
+
+    .button button:hover {
+      transform: scale(1.05);
+    }
+
+    /* ===== МОДАЛЬНОЕ ОКНО ===== */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .modal.active {
+      display: flex;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .modal-content {
+      background: rgba(30,30,30,0.95);
+      padding: 40px;
+      border-radius: 25px;
+      text-align: center;
+      max-width: 350px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+    }
+
+    .modal-content h2 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 15px;
+    }
+
+    .modal-content p {
+      margin-bottom: 25px;
+      opacity: 0.9;
+    }
+
+    .modal-content a {
+      display: inline-block;
+      text-decoration: none;
+      background: linear-gradient(135deg, #25D366, #1ebe57);
+      color: #000;
+      padding: 14px 30px;
+      border-radius: 40px;
+      font-weight: 600;
+      transition: 0.3s ease;
+    }
+
+    .modal-content a:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 80px;
+      font-size: 0.85rem;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+
+<div class="overlay"></div>
+
+<div class="container">
+    <h1>Пойдём в кино, Сезім?</h1>
+    <p class="subtitle">Біз екеуміз ғана).</p>
+
+    <div class="card">
+      <h2>🕰 Время</h2>
+      <p>Четверг, 21:30</p>
+    </div>
+
+    <div class="card">
+      <h2>📍 Место</h2>
+      <p>Kinopark, Moskow</p>
+    </div>
+
+    <div class="card">
+      <h2>🎞 Фильм</h2>
+      <p>Ғашықпын саған</p>
+    </div>
+
+    <div class="card">
+      <h2>👗 Дресс-код</h2>
+      <div class="dress">
+        <span>Как тебе удобно)</span>
+        <span>Комфорт самое главное</span>
+        <span>Ты — главный акцент</span>
+      </div>
+    </div>
+
+
+  <div class="button">
+    <button onclick="openModal()">Я согласна ✨</button>
+  </div>
+
+  <footer>
+    Сделано специально для одного «да»
+  </footer>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h2>Тогда напиши мне 💬</h2>
+    <p>Я уже жду твоё сообщение</p>
+
+    <!-- 🔴 ЗАМЕНИ НОМЕР -->
+    <a href="https://wa.me/77001234567" target="_blank">
+      Написать в WhatsApp
+    </a>
+  </div>
+</div>
+
+<script>
+  function openModal() {
+    document.getElementById('modal').classList.add('active');
+  }
+
+  window.onclick = function(e) {
+    const modal = document.getElementById('modal');
+    if (e.target === modal) {
+      modal.classList.remove('active');
+    }
+  }
+</script>
+
+</body>
+</html>
